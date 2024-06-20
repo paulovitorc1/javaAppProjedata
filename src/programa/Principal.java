@@ -32,13 +32,17 @@ public class Principal {
 		}
 
 		for (Funcionario funcionario : funcionarios) {
-			System.out.println("Nome: " + funcionario.getNome() 
-				+ " Data de Nascimento: " + funcionario.getData_nascimento() 
-				+ " Salario: " + funcionario.getSalario() 
-				+ " Função: " + funcionario.getFuncao());
+			System.out.println(
+					"Nome: " + funcionario.getNome() + " Data de Nascimento: " + funcionario.getData_nascimento()
+							+ " Salario: " + funcionario.getSalario() + " Função: " + funcionario.getFuncao());
 		}
-		
-		
+
+		for (Funcionario funcionario : funcionarios) {
+			BigDecimal salario_atual = funcionario.getSalario();
+			BigDecimal aumento_salarial = salario_atual.multiply(new BigDecimal(".10"));
+			BigDecimal salario_apos_aumento = salario_atual.add(aumento_salarial);
+			funcionario.setSalario(salario_apos_aumento);
+		}
 
 	}
 
