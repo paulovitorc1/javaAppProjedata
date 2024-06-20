@@ -1,7 +1,9 @@
 package programa;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,9 @@ public class Principal {
 		funcionarios.add(new Funcionario("Heloísa", LocalDate.of(2003, 5, 24), new BigDecimal("1606.85"), "Eletricista"));
 		funcionarios.add(new Funcionario("Helena", LocalDate.of(1996, 9, 2), new BigDecimal("2799.93"), "Gerente"));
 
+		DateTimeFormatter formato_data = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DecimalFormat formato_salario = new DecimalFormat("#,##0.00");
+
 		for (Funcionario funcionario : funcionarios) {
 			if (funcionario.getNome().equals("João")) {
 				funcionarios.remove(funcionario);
@@ -32,9 +37,11 @@ public class Principal {
 		}
 
 		for (Funcionario funcionario : funcionarios) {
-			System.out.println(
-					"Nome: " + funcionario.getNome() + " Data de Nascimento: " + funcionario.getData_nascimento()
-							+ " Salario: " + funcionario.getSalario() + " Função: " + funcionario.getFuncao());
+			String dataFormatada = funcionario.getData_nascimento().format(formato_data);
+			String salarioFormatado = formato_salario.format(funcionario.getSalario());
+
+			System.out.println("Nome: " + funcionario.getNome() + " Data de Nascimento: " + dataFormatada + " Salario: "
+					+ salarioFormatado + " Função: " + funcionario.getFuncao());
 		}
 
 		for (Funcionario funcionario : funcionarios) {
