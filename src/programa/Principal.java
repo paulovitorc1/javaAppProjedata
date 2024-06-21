@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,6 +79,18 @@ public class Principal {
         	if (mes_nascimento == Month.OCTOBER || mes_nascimento == Month.DECEMBER){
         		System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
 			}
+		}
+        
+    	Funcionario funcionario_mais_velho = null; 
+        for (Funcionario funcionario : funcionarios) {
+        	if (funcionario_mais_velho == null || funcionario.getData_nascimento().isBefore(funcionario_mais_velho.getData_nascimento())) {
+				funcionario_mais_velho = funcionario;
+			}
+		}
+    	if (funcionario_mais_velho != null) {
+			Period idade = Period.between(funcionario_mais_velho.getData_nascimento(), LocalDate.now());
+			System.out.println("Funcionário mais velho:");
+			System.out.println(" Nome: " + funcionario_mais_velho.getNome() + ", Idade: " + idade.getYears());
 		}
 
 	}
