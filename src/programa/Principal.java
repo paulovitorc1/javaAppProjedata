@@ -111,6 +111,13 @@ public class Principal {
 							+ ", Salario: " + funcionario.getSalario() + ", Função: " + funcionario.getFuncao());
 		}
 
+		BigDecimal total_salario = BigDecimal.ZERO;
+		for (Funcionario funcionario : funcionarios) {
+			BigDecimal salario = funcionario.getSalario();
+			total_salario = total_salario.add(salario);
+		}
+		System.out.println("Total dos salários: " + total_salario);
+
 	}
 
 }
