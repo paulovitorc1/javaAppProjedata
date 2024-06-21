@@ -1,6 +1,7 @@
 package programa;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -42,11 +43,12 @@ public class Principal {
 			}
 		}
 
+		System.out.println("Lista de funcionários:");
 		for (Funcionario funcionario : funcionarios) {
 			String dataFormatada = funcionario.getData_nascimento().format(formato_data);
 			String salarioFormatado = formato_salario.format(funcionario.getSalario());
 
-			System.out.println("Nome: " + funcionario.getNome() + ", Data de Nascimento: " + dataFormatada
+			System.out.println(" Nome: " + funcionario.getNome() + ", Data de Nascimento: " + dataFormatada
 					+ ", Salario: " + salarioFormatado + ", Função: " + funcionario.getFuncao());
 		}
 
@@ -67,9 +69,9 @@ public class Principal {
 			}
 			funcionarios_da_funcao.add(funcionario);
 		}
-
+		System.out.println("Funcionários agrupados por função:");
 		for (Map.Entry<String, List<Funcionario>> entry : funcionarios_por_funcao.entrySet()) {
-			System.out.println("Função: " + entry.getKey());
+			System.out.println(entry.getKey());
 			for (Funcionario funcionario : entry.getValue()) {
 				System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: "
 						+ funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
@@ -87,8 +89,7 @@ public class Principal {
 
 		Funcionario funcionario_mais_velho = null;
 		for (Funcionario funcionario : funcionarios) {
-			if (funcionario_mais_velho == null
-					|| funcionario.getData_nascimento().isBefore(funcionario_mais_velho.getData_nascimento())) {
+			if (funcionario_mais_velho == null || funcionario.getData_nascimento().isBefore(funcionario_mais_velho.getData_nascimento())) {
 				funcionario_mais_velho = funcionario;
 			}
 		}
@@ -107,7 +108,7 @@ public class Principal {
 		System.out.println("Lista de funcionários ordenada por nome:");
 		for (Funcionario funcionario : funcionarios) {
 			System.out.println(
-					"Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento()
+					" Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento()
 							+ ", Salario: " + funcionario.getSalario() + ", Função: " + funcionario.getFuncao());
 		}
 
@@ -117,6 +118,14 @@ public class Principal {
 			total_salario = total_salario.add(salario);
 		}
 		System.out.println("Total dos salários: " + total_salario);
+
+		System.out.println("Quantidade de salario minimo:");
+		BigDecimal salario_minimo = new BigDecimal("1212.00");
+		for (Funcionario funcionario : funcionarios) {
+			BigDecimal salario = funcionario.getSalario();
+			BigDecimal quantidade_salario_minimo = salario.divide(salario_minimo, 2, RoundingMode.HALF_UP);
+			System.out.println(" Nome: " + funcionario.getNome() + ", Qtd salário mínimo: " + quantidade_salario_minimo);
+		}
 
 	}
 
