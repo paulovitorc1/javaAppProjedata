@@ -5,7 +5,9 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import modelos.Funcionario;
 
@@ -21,7 +23,7 @@ public class Principal {
 		funcionarios.add(new Funcionario("Miguel", LocalDate.of(1988, 10, 14), new BigDecimal("19119.88"), "Diretor"));
 		funcionarios.add(new Funcionario("Alice", LocalDate.of(1995, 1, 5), new BigDecimal("2234.68"), "Recepcionista"));
 		funcionarios.add(new Funcionario("Heitor", LocalDate.of(1999, 11, 19), new BigDecimal("1583.72"), "Operador"));
-		funcionarios.add(new Funcionario("Arthir", LocalDate.of(1993, 3, 31), new BigDecimal("4071.84"), "COntador"));
+		funcionarios.add(new Funcionario("Arthir", LocalDate.of(1993, 3, 31), new BigDecimal("4071.84"), "Contador"));
 		funcionarios.add(new Funcionario("Laura", LocalDate.of(1994, 7, 8), new BigDecimal("3017.45"), "Gerente"));
 		funcionarios.add(new Funcionario("Heloísa", LocalDate.of(2003, 5, 24), new BigDecimal("1606.85"), "Eletricista"));
 		funcionarios.add(new Funcionario("Helena", LocalDate.of(1996, 9, 2), new BigDecimal("2799.93"), "Gerente"));
@@ -49,6 +51,17 @@ public class Principal {
 			BigDecimal aumento_salarial = salario_atual.multiply(new BigDecimal(".10"));
 			BigDecimal salario_apos_aumento = salario_atual.add(aumento_salarial);
 			funcionario.setSalario(salario_apos_aumento);
+		}
+
+		Map<String, List<Funcionario>> funcionarios_por_funcao = new HashMap<>();
+		for (Funcionario funcionario : funcionarios) {
+			String funcao_funcionario = funcionario.getFuncao();
+			List<Funcionario> funcionarios_da_funcao = funcionarios_por_funcao.get(funcao_funcionario);
+			if (funcionarios_da_funcao == null) {
+				funcionarios_da_funcao = new ArrayList<>();
+				funcionarios_por_funcao.put(funcao_funcionario, funcionarios_da_funcao);
+			}
+			funcionarios_da_funcao.add(funcionario);
 		}
 
 	}
