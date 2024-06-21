@@ -7,6 +7,8 @@ import java.time.Month;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +46,8 @@ public class Principal {
 			String dataFormatada = funcionario.getData_nascimento().format(formato_data);
 			String salarioFormatado = formato_salario.format(funcionario.getSalario());
 
-			System.out.println("Nome: " + funcionario.getNome() + ", Data de Nascimento: " + dataFormatada + ", Salario: "
-					+ salarioFormatado + ", Função: " + funcionario.getFuncao());
+			System.out.println("Nome: " + funcionario.getNome() + ", Data de Nascimento: " + dataFormatada
+					+ ", Salario: " + salarioFormatado + ", Função: " + funcionario.getFuncao());
 		}
 
 		for (Funcionario funcionario : funcionarios) {
@@ -65,32 +67,48 @@ public class Principal {
 			}
 			funcionarios_da_funcao.add(funcionario);
 		}
-		
-        for (Map.Entry<String, List<Funcionario>> entry : funcionarios_por_funcao.entrySet()) {
-            System.out.println("Função: " + entry.getKey());
-            for (Funcionario funcionario : entry.getValue()) {
-                System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
-            }
-        }
-        
-        System.out.println("Aniversariantes em Outubro e Dezembro:");
-        for (Funcionario funcionario : funcionarios) {
-        	Month mes_nascimento = funcionario.getData_nascimento().getMonth();
-        	if (mes_nascimento == Month.OCTOBER || mes_nascimento == Month.DECEMBER){
-        		System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
+
+		for (Map.Entry<String, List<Funcionario>> entry : funcionarios_por_funcao.entrySet()) {
+			System.out.println("Função: " + entry.getKey());
+			for (Funcionario funcionario : entry.getValue()) {
+				System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: "
+						+ funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
 			}
 		}
-        
-    	Funcionario funcionario_mais_velho = null; 
-        for (Funcionario funcionario : funcionarios) {
-        	if (funcionario_mais_velho == null || funcionario.getData_nascimento().isBefore(funcionario_mais_velho.getData_nascimento())) {
+
+		System.out.println("Aniversariantes em Outubro e Dezembro:");
+		for (Funcionario funcionario : funcionarios) {
+			Month mes_nascimento = funcionario.getData_nascimento().getMonth();
+			if (mes_nascimento == Month.OCTOBER || mes_nascimento == Month.DECEMBER) {
+				System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: "
+						+ funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
+			}
+		}
+
+		Funcionario funcionario_mais_velho = null;
+		for (Funcionario funcionario : funcionarios) {
+			if (funcionario_mais_velho == null
+					|| funcionario.getData_nascimento().isBefore(funcionario_mais_velho.getData_nascimento())) {
 				funcionario_mais_velho = funcionario;
 			}
 		}
-    	if (funcionario_mais_velho != null) {
+		if (funcionario_mais_velho != null) {
 			Period idade = Period.between(funcionario_mais_velho.getData_nascimento(), LocalDate.now());
 			System.out.println("Funcionário mais velho:");
 			System.out.println(" Nome: " + funcionario_mais_velho.getNome() + ", Idade: " + idade.getYears());
+		}
+
+		Collections.sort(funcionarios, new Comparator<Funcionario>() {
+			@Override
+			public int compare(Funcionario f1, Funcionario f2) {
+				return f1.getNome().compareTo(f2.getNome());
+			}
+		});
+		System.out.println("Lista de funcionários ordenada por nome:");
+		for (Funcionario funcionario : funcionarios) {
+			System.out.println(
+					"Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento()
+							+ ", Salario: " + funcionario.getSalario() + ", Função: " + funcionario.getFuncao());
 		}
 
 	}
