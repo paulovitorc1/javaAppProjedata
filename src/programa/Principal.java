@@ -3,6 +3,7 @@ package programa;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +71,14 @@ public class Principal {
                 System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
             }
         }
+        
+        System.out.println("Aniversariantes em Outubro e Dezembro:");
+        for (Funcionario funcionario : funcionarios) {
+        	Month mes_nascimento = funcionario.getData_nascimento().getMonth();
+        	if (mes_nascimento == Month.OCTOBER || mes_nascimento == Month.DECEMBER){
+        		System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
+			}
+		}
 
 	}
 
