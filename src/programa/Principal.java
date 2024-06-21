@@ -23,7 +23,7 @@ public class Principal {
 		funcionarios.add(new Funcionario("Miguel", LocalDate.of(1988, 10, 14), new BigDecimal("19119.88"), "Diretor"));
 		funcionarios.add(new Funcionario("Alice", LocalDate.of(1995, 1, 5), new BigDecimal("2234.68"), "Recepcionista"));
 		funcionarios.add(new Funcionario("Heitor", LocalDate.of(1999, 11, 19), new BigDecimal("1583.72"), "Operador"));
-		funcionarios.add(new Funcionario("Arthir", LocalDate.of(1993, 3, 31), new BigDecimal("4071.84"), "Contador"));
+		funcionarios.add(new Funcionario("Arthur", LocalDate.of(1993, 3, 31), new BigDecimal("4071.84"), "Contador"));
 		funcionarios.add(new Funcionario("Laura", LocalDate.of(1994, 7, 8), new BigDecimal("3017.45"), "Gerente"));
 		funcionarios.add(new Funcionario("Heloísa", LocalDate.of(2003, 5, 24), new BigDecimal("1606.85"), "Eletricista"));
 		funcionarios.add(new Funcionario("Helena", LocalDate.of(1996, 9, 2), new BigDecimal("2799.93"), "Gerente"));
@@ -42,8 +42,8 @@ public class Principal {
 			String dataFormatada = funcionario.getData_nascimento().format(formato_data);
 			String salarioFormatado = formato_salario.format(funcionario.getSalario());
 
-			System.out.println("Nome: " + funcionario.getNome() + " Data de Nascimento: " + dataFormatada + " Salario: "
-					+ salarioFormatado + " Função: " + funcionario.getFuncao());
+			System.out.println("Nome: " + funcionario.getNome() + ", Data de Nascimento: " + dataFormatada + ", Salario: "
+					+ salarioFormatado + ", Função: " + funcionario.getFuncao());
 		}
 
 		for (Funcionario funcionario : funcionarios) {
@@ -63,6 +63,13 @@ public class Principal {
 			}
 			funcionarios_da_funcao.add(funcionario);
 		}
+		
+        for (Map.Entry<String, List<Funcionario>> entry : funcionarios_por_funcao.entrySet()) {
+            System.out.println("Função: " + entry.getKey());
+            for (Funcionario funcionario : entry.getValue()) {
+                System.out.println("  Nome: " + funcionario.getNome() + ", Data de Nascimento: " + funcionario.getData_nascimento() + ", Salário: " + funcionario.getSalario());
+            }
+        }
 
 	}
 
